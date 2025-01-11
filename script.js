@@ -1,0 +1,1 @@
+mongodb+srv://anirban:<db_password>@crypto-backend.kpsd6.mongodb.net/
