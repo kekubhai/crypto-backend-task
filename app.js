@@ -1,21 +1,18 @@
-const cron = require('node-cron');
-const fetchCryptoData = require('./services/jobs');
-cron.schedule('0 */2 * * *', fetchCryptoData);
-
-
 const express = require('express');
 const dotenv = require('dotenv');
 const connectDB = require('./config/db');
 const apiRoutes = require('./routes/api');
-const fetchCryptoData = require('./services/jobs');
+const fetchCryptoData = require('./services/jobs'); // Import once
+const cron = require('node-cron');
 
 dotenv.config();
 connectDB();
 
 const app = express();
 app.use(express.json());
-fetchCryptoData();
 
+fetchCryptoData(); // Start job immediately
+cron.schedule('0 */2 * * *', fetchCryptoData); // Schedule job every 2 hours
 
 app.use('/api', apiRoutes);
 
